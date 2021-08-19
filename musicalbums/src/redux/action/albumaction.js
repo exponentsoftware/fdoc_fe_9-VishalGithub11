@@ -6,15 +6,10 @@ export const setAlbum = (albums) => {
   };
 };
 
-export const selectedAlbum = (album) => {
+export const deleteAlbum = (id) => {
   return {
-    type: ActionTypes.SELECTED_ALBUM,
-    payload: album,
+    type: ActionTypes.DELETE_ALBUM,
+    payload: id,
   };
 };
 
-export const removeSelectedAlbum = (album) => {
-  return {
-    type: ActionTypes.REMOVE_ALBUM,
-  };
-};

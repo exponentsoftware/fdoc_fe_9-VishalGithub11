@@ -39,7 +39,7 @@ const AddAlbum = (props) => {
     );
 
     const file = await res.json();
-    await setimageurl(file.secure_url);
+    setimageurl(file.secure_url);
   };
 
   const handleUpload = () => {
@@ -49,76 +49,66 @@ const AddAlbum = (props) => {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    if (imageurl == "") {
-      return (
-        <div>
-          <p>image not uploaded yet. wait....</p>
-          {console.log("wait...")}
-        </div>
-      );
-    } else {
-      setState({ ...state, image: imageurl });
-      console.log("state", state);
-      const addItem = {
-        id: "5",
-        artist: state.artist,
-        album_title: state.album_title,
-        album_cover: state.image,
-        songs: ["more_piya", "ghar_aayenge", "ye dil"],
-      };
-      dispatch(setAlbum(addItem));
-    }
+    setState({ ...state, image: imageurl });
+    console.log("state", state);
+    const addItem = {
+      id: "5",
+      artist: state.artist,
+      album_title: state.album_title,
+      album_cover: state.image,
+      songs: ["more_piya", "ghar_aayenge", "ye dil"],
+    };
+    dispatch(setAlbum(addItem));
   };
 
   return (
-    <div style={{ height: "70vh", width: "25%", border: "1px solid green" }}>
+    <div>
       <div>
-        {" "}
         <h1>Add Your Album</h1>{" "}
       </div>
-
-      <form action="" className="formdata" onSubmit={onSubmit}>
-        <div style={{ margin: "2em" }}>
-          <input
-            type="text"
-            value={state.album_title}
-            name="album_title"
-            placeholder="album_title"
-            onChange={handleChangetextField("album_title")}
-          />
+      <div className="addalbum">
+        <form action="" className="formdata" onSubmit={onSubmit}>
+          <div style={{ margin: "2em" }}>
+            <input
+              type="text"
+              value={state.album_title}
+              name="album_title"
+              placeholder="album_title"
+              onChange={handleChangetextField("album_title")}
+            />
+          </div>
+          <div style={{ margin: "2em" }}>
+            <input
+              type="text"
+              value={state.artist}
+              name="artist"
+              placeholder="artist"
+              onChange={handleChangetextField("artist")}
+            />
+          </div>
+          <div style={{ margin: "2em" }}>
+            <input
+              type="file"
+              name="upload-file"
+              placeholder="upload-cover-pic"
+              onChange={handleChangeFile}
+            />
+          </div>
+          <button onClick={handleUpload}> Upload </button>
+          <div>
+            {" "}
+            <input
+              type="submit"
+              value="Submit"
+              // onClick={() => props.updateAlbum(state)}
+            />
+          </div>
+        </form>
+        <div style={{ color: "white", width: "220px", height: "200px" }}>
+          <img src={imageurl} alt="" width="200px" height="190px" />
+          <p> album_name: {state.album_title}</p>
+          <p>artist: {state.artist}</p>
         </div>
-        <div style={{ margin: "2em" }}>
-          <input
-            type="text"
-            value={state.artist}
-            name="artist"
-            placeholder="artist"
-            onChange={handleChangetextField("artist")}
-          />
-        </div>
-        <div style={{ margin: "2em" }}>
-          <input
-            type="file"
-            name="upload-file"
-            placeholder="upload-cover-pic"
-            onChange={handleChangeFile}
-          />
-        </div>
-        <button onClick={handleUpload}> Upload </button>
-        <div>
-          {" "}
-          <input
-            type="submit"
-            value="Submit"
-            // onClick={() => props.updateAlbum(state)}
-          />
-        </div>
-      </form>
-      <div style={{ color: "blue", width: "220px", height: "200px" }}>
-        <img src={state.image} alt="" width="200px" height="190px" />
-        {console.log(state.image)}
-        <p> album_name: {state.album_title}</p>
-        <p>artist: {state.artist}</p>
       </div>
     </div>
   );

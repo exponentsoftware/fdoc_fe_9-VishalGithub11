@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { setAlbum } from "./redux/action/albumaction";
+import { deleteAlbum, setAlbum } from "./redux/action/albumaction";
 
 const Album = () => {
   const [search, setSearch] = useState("");
@@ -10,11 +10,11 @@ const Album = () => {
   const item = useSelector((state) => state.allAlbums);
 
   const handleDelete = (id) => {
-    const data = item.filter((elem) => {
-      return elem.id !== id;
-    });
-    console.log("data", data);
-    // dispatch(setAlbum(data));
+    // const data = item.filter((elem) => {
+    //   return elem.id !== id;
+    // });
+    // console.log("data", data);
+    dispatch(deleteAlbum(id));
   };
 
   const renderList = item
@@ -31,6 +31,7 @@ const Album = () => {
       return (
         <div className="cards" key={i}>
           <Link
+            className="album"
             to={{
               pathname: `/albums/songs/:${id}`,
               state: { songsList: { songs } },
@@ -42,6 +43,7 @@ const Album = () => {
             <div className="album_name">{album_title}</div>
             <div className="musician_name">{artist}</div>
           </Link>
+
           <button className="delete" onClick={() => handleDelete({ id })}>
             Delete
           </button>
@@ -62,6 +64,7 @@ const Album = () => {
           />
         </div>
       </div>
+      <p>click on image to see listed songs</p>
 
       <div className="list">{renderList}</div>
     </>
