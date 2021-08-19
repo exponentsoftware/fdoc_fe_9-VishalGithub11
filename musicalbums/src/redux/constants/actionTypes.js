@@ -1,0 +1,5 @@
+export const ActionTypes = {
+  SET_ALBUM: "SET_ALBUM",
+  SELECTED_ALBUM: "SELECTED_ALBUM",
+  REMOVE_ALBUM: "REMOVE_ALBUM",
+};
